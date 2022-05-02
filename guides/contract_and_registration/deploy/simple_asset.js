@@ -56,6 +56,14 @@ async function main() {
     console.log("[SUCCESS] Smart Contract deployed successfully.")
     fs.writeFileSync("./REGISTRATION_DETAILS.json", JSON.stringify(REG_DETAILS, null, 4))
     console.log("[INFO] Registration details have been stored in REGISTRATION_DETAILS.json")
+    
+    console.log('[INFO] Verifying contract in 5 minutes...');
+    await sleep(60000 * 5);
+    await run("verify:verify", {
+        address: asset.address,
+        constructorArguments: [owner, name, symbol, imxAddress],
+    });
+    console.log("[SUCCESS] Smart Contract verified successfully.")
 }
 
 async function getPublicKey(signer){
